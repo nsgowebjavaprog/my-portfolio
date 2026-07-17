@@ -1,200 +1,164 @@
-/**
- * THREE-BG.JS
- * Neural network particle system + geometric elements
- * Pure white lines & dots on black — high contrast
- */
+/* ============================================================
+   THREE-BG.JS
+   "Token Loom" — an ambient field of nodes and threads behind the
+   hero, standing in for the two things this portfolio is about:
+   a tokenizer breaking language into pieces, and a network
+   stitching those pieces back into meaning.
+   ============================================================ */
 (function () {
-  const canvas = document.getElementById('three-canvas');
-  const W = window.innerWidth;
-  const H = window.innerHeight;
+  const canvas = document.getElementById('loom-canvas');
+  if (!canvas || typeof THREE === 'undefined') return;
 
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.setSize(W, H);
-  renderer.setClearColor(0x000000, 1);
+  const prefersReducedMotion = window.matchMedia(
+    '(prefers-reduced-motion: reduce)'
+  ).matches;
+
+  const BRASS = 0xc89b3c;
+  const BRASS_SOFT = 0xe3c878;
+  const PAPER = 0xede8da;
+
+  let width = window.innerWidth;
+  let height = window.innerHeight;
+
+  const renderer = new THREE.WebGLRenderer({
+    canvas,
+    antialias: true,
+    alpha: true,
+  });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.setSize(width, height);
 
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(55, W / H, 0.1, 1000);
-  camera.position.set(0, 0, 40);
+  const camera = new THREE.PerspectiveCamera(50, width / height, 0.1, 100);
+  camera.position.set(0, 0, 18);
 
-  /* ── MOUSE ── */
-  const mouse = { x: 0, y: 0, tx: 0, ty: 0 };
-  window.addEventListener('mousemove', e => {
-    mouse.tx = (e.clientX / window.innerWidth  - 0.5) * 2;
-    mouse.ty = -(e.clientY / window.innerHeight - 0.5) * 2;
-  });
+  const loom = new THREE.Group();
+  scene.add(loom);
 
-  /* ── NODES (neural-net dots) ── */
-  const NODE_COUNT = 120;
-  const nodes = [];
-  const nodePosArr = new Float32Array(NODE_COUNT * 3);
+  /* ---------- Build the node field ---------- */
+  const NODE_COUNT = width < 700 ? 90 : 170;
+  const RADIUS_X = 14;
+  const RADIUS_Y = 8;
+  const RADIUS_Z = 8;
 
+  const nodePositions = [];
   for (let i = 0; i < NODE_COUNT; i++) {
-    const node = {
-      x: (Math.random() - 0.5) * 90,
-      y: (Math.random() - 0.5) * 70,
-      z: (Math.random() - 0.5) * 30,
-      vx: (Math.random() - 0.5) * 0.04,
-      vy: (Math.random() - 0.5) * 0.04,
-      vz: (Math.random() - 0.5) * 0.02,
-    };
-    nodes.push(node);
-    nodePosArr[i * 3]     = node.x;
-    nodePosArr[i * 3 + 1] = node.y;
-    nodePosArr[i * 3 + 2] = node.z;
+    nodePositions.push(
+      new THREE.Vector3(
+        (Math.random() - 0.5) * 2 * RADIUS_X,
+        (Math.random() - 0.5) * 2 * RADIUS_Y,
+        (Math.random() - 0.5) * 2 * RADIUS_Z
+      )
+    );
   }
 
-  const nodeGeo = new THREE.BufferGeometry();
-  nodeGeo.setAttribute('position', new THREE.BufferAttribute(nodePosArr, 3));
-  const nodeMat = new THREE.PointsMaterial({
-    color: 0xffffff,
-    size: 0.35,
+  const pointsGeo = new THREE.BufferGeometry().setFromPoints(nodePositions);
+  const pointsMat = new THREE.PointsMaterial({
+    color: BRASS_SOFT,
+    size: 0.09,
     transparent: true,
-    opacity: 0.9,
+    opacity: 0.85,
     sizeAttenuation: true,
   });
-  const nodePoints = new THREE.Points(nodeGeo, nodeMat);
-  scene.add(nodePoints);
+  const points = new THREE.Points(pointsGeo, pointsMat);
+  loom.add(points);
 
-  /* ── EDGES (connections between near nodes) ── */
-  const EDGE_DIST = 22;
-  const MAX_EDGES = 300;
+  /* ---------- Thread nearby nodes together ---------- */
+  const MAX_LINK_DIST = 3.4;
+  const MAX_LINKS = 260;
+  const linkPositions = [];
+  let linkCount = 0;
 
-  const edgePosArr = new Float32Array(MAX_EDGES * 2 * 3);
-  const edgeAlpha  = new Float32Array(MAX_EDGES);
-
-  const edgeGeo = new THREE.BufferGeometry();
-  edgeGeo.setAttribute('position', new THREE.BufferAttribute(edgePosArr, 3));
-  edgeGeo.setDrawRange(0, 0);
-
-  const edgeMat = new THREE.LineSegments(
-    edgeGeo,
-    new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.18, vertexColors: false })
-  );
-  scene.add(edgeMat);
-
-  /* ── BACKGROUND STAR PARTICLES ── */
-  const STAR_COUNT = 1200;
-  const starPos = new Float32Array(STAR_COUNT * 3);
-  for (let i = 0; i < STAR_COUNT; i++) {
-    starPos[i * 3]     = (Math.random() - 0.5) * 200;
-    starPos[i * 3 + 1] = (Math.random() - 0.5) * 200;
-    starPos[i * 3 + 2] = (Math.random() - 0.5) * 80 - 20;
-  }
-  const starGeo = new THREE.BufferGeometry();
-  starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
-  const starMat = new THREE.PointsMaterial({
-    color: 0xffffff, size: 0.07, transparent: true, opacity: 0.45, sizeAttenuation: true,
-  });
-  scene.add(new THREE.Points(starGeo, starMat));
-
-  /* ── WIREFRAME SPHERE ── */
-  const sphMesh = new THREE.Mesh(
-    new THREE.SphereGeometry(12, 24, 24),
-    new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true, transparent: true, opacity: 0.04 })
-  );
-  sphMesh.position.set(22, -4, -10);
-  scene.add(sphMesh);
-
-  /* ── SECOND SMALL SPHERE ── */
-  const sph2 = new THREE.Mesh(
-    new THREE.SphereGeometry(5, 16, 16),
-    new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true, transparent: true, opacity: 0.06 })
-  );
-  sph2.position.set(-24, 10, -15);
-  scene.add(sph2);
-
-  /* ── TORUS RING ── */
-  const torusMesh = new THREE.Mesh(
-    new THREE.TorusGeometry(7, 0.025, 8, 80),
-    new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.07 })
-  );
-  torusMesh.position.set(-18, -8, -18);
-  torusMesh.rotation.x = Math.PI * 0.35;
-  scene.add(torusMesh);
-
-  /* ── GRID ── */
-  const grid = new THREE.GridHelper(180, 50, 0x1a1a1a, 0x1a1a1a);
-  grid.position.y = -28;
-  grid.material.transparent = true;
-  grid.material.opacity = 0.6;
-  scene.add(grid);
-
-  /* ── SCROLL ── */
-  let scrollY = 0;
-  window.addEventListener('scroll', () => { scrollY = window.scrollY; });
-
-  /* ── ANIMATION ── */
-  let frame = 0;
-  function animate() {
-    requestAnimationFrame(animate);
-    frame++;
-    const t = frame * 0.005;
-
-    /* smooth mouse */
-    mouse.x += (mouse.tx - mouse.x) * 0.05;
-    mouse.y += (mouse.ty - mouse.y) * 0.05;
-
-    /* camera parallax */
-    camera.position.x += (mouse.x * 4 - camera.position.x) * 0.025;
-    camera.position.y += (mouse.y * 3 - camera.position.y) * 0.025;
-    camera.position.z  = 40 + scrollY * 0.006;
-    camera.lookAt(0, 0, 0);
-
-    /* move nodes */
-    let edgeCount = 0;
-    for (let i = 0; i < NODE_COUNT; i++) {
-      const n = nodes[i];
-      n.x += n.vx; n.y += n.vy; n.z += n.vz;
-      if (Math.abs(n.x) > 45) n.vx *= -1;
-      if (Math.abs(n.y) > 35) n.vy *= -1;
-      if (Math.abs(n.z) > 15) n.vz *= -1;
-      nodePosArr[i * 3]     = n.x;
-      nodePosArr[i * 3 + 1] = n.y;
-      nodePosArr[i * 3 + 2] = n.z;
-    }
-    nodeGeo.attributes.position.needsUpdate = true;
-
-    /* rebuild edges */
-    for (let i = 0; i < NODE_COUNT && edgeCount < MAX_EDGES; i++) {
-      for (let j = i + 1; j < NODE_COUNT && edgeCount < MAX_EDGES; j++) {
-        const dx = nodes[i].x - nodes[j].x;
-        const dy = nodes[i].y - nodes[j].y;
-        const dz = nodes[i].z - nodes[j].z;
-        const d  = Math.sqrt(dx*dx + dy*dy + dz*dz);
-        if (d < EDGE_DIST) {
-          const b = edgeCount * 6;
-          edgePosArr[b]   = nodes[i].x; edgePosArr[b+1] = nodes[i].y; edgePosArr[b+2] = nodes[i].z;
-          edgePosArr[b+3] = nodes[j].x; edgePosArr[b+4] = nodes[j].y; edgePosArr[b+5] = nodes[j].z;
-          edgeCount++;
-        }
+  outer: for (let i = 0; i < nodePositions.length; i++) {
+    for (let j = i + 1; j < nodePositions.length; j++) {
+      if (linkCount >= MAX_LINKS) break outer;
+      const d = nodePositions[i].distanceTo(nodePositions[j]);
+      if (d < MAX_LINK_DIST) {
+        linkPositions.push(nodePositions[i], nodePositions[j]);
+        linkCount++;
       }
     }
-    edgeGeo.attributes.position.needsUpdate = true;
-    edgeGeo.setDrawRange(0, edgeCount * 2);
+  }
 
-    /* rotations */
-    nodePoints.rotation.y = t * 0.04;
-    sphMesh.rotation.y    = t * 0.12;
-    sphMesh.rotation.x    = t * 0.04;
-    sph2.rotation.y       = -t * 0.18;
-    sph2.rotation.z       = t * 0.08;
-    torusMesh.rotation.z  = t * 0.1;
-    torusMesh.rotation.y  = t * 0.05;
+  const linkGeo = new THREE.BufferGeometry().setFromPoints(linkPositions);
+  const linkMat = new THREE.LineBasicMaterial({
+    color: PAPER,
+    transparent: true,
+    opacity: 0.06,
+  });
+  const links = new THREE.LineSegments(linkGeo, linkMat);
+  loom.add(links);
 
-    /* breathing opacity */
-    nodeMat.opacity = 0.7 + Math.sin(t * 0.8) * 0.15;
-    edgeMat.material.opacity = 0.12 + Math.sin(t * 0.6) * 0.04;
+  /* ---------- A few brighter "focal" nodes ---------- */
+  const focalGeo = new THREE.SphereGeometry(0.07, 12, 12);
+  const focalMat = new THREE.MeshBasicMaterial({ color: BRASS });
+  const focalCount = 6;
+  const focals = [];
+  for (let i = 0; i < focalCount; i++) {
+    const mesh = new THREE.Mesh(focalGeo, focalMat);
+    const base = nodePositions[Math.floor(Math.random() * nodePositions.length)];
+    mesh.position.copy(base);
+    loom.add(mesh);
+    focals.push({ mesh, phase: Math.random() * Math.PI * 2 });
+  }
+
+  /* ---------- Interaction state ---------- */
+  const pointer = { x: 0, y: 0 };
+  const targetRotation = { x: 0, y: 0 };
+
+  window.addEventListener('mousemove', (e) => {
+    pointer.x = (e.clientX / window.innerWidth) * 2 - 1;
+    pointer.y = (e.clientY / window.innerHeight) * 2 - 1;
+  });
+
+  window.addEventListener('resize', () => {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+    renderer.setSize(width, height);
+  });
+
+  /* ---------- Scroll-linked drift ---------- */
+  let scrollFactor = 0;
+  window.addEventListener(
+    'scroll',
+    () => {
+      const max = document.body.scrollHeight - window.innerHeight;
+      scrollFactor = max > 0 ? window.scrollY / max : 0;
+    },
+    { passive: true }
+  );
+
+  /* ---------- Render loop ---------- */
+  const clock = new THREE.Clock();
+
+  function renderStaticFrame() {
+    loom.rotation.set(0.15, -0.3, 0);
+    renderer.render(scene, camera);
+  }
+
+  function animate() {
+    requestAnimationFrame(animate);
+    const t = clock.getElapsedTime();
+
+    targetRotation.y += (pointer.x * 0.3 - targetRotation.y) * 0.02;
+    targetRotation.x += (pointer.y * 0.15 - targetRotation.x) * 0.02;
+
+    loom.rotation.y = targetRotation.y + t * 0.02 + scrollFactor * 0.6;
+    loom.rotation.x = targetRotation.x + Math.sin(t * 0.1) * 0.04;
+
+    focals.forEach((f, i) => {
+      const pulse = 0.9 + Math.sin(t * 1.4 + f.phase) * 0.35;
+      f.mesh.scale.setScalar(pulse);
+    });
 
     renderer.render(scene, camera);
   }
-  animate();
 
-  /* ── RESIZE ── */
-  window.addEventListener('resize', () => {
-    const W = window.innerWidth, H = window.innerHeight;
-    camera.aspect = W / H;
-    camera.updateProjectionMatrix();
-    renderer.setSize(W, H);
-  });
+  if (prefersReducedMotion) {
+    renderStaticFrame();
+  } else {
+    animate();
+  }
 })();
