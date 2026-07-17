@@ -1,385 +1,281 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Nagaraj Loni · Developer</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,600;1,400&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="style.css"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nagaraj Loni — AI/ML &amp; MLOps Engineer</title>
+<meta name="description" content="Nagaraj Loni — Computer Science undergraduate building production-grade AI systems, from KannadaLM (a monolingual LLM trained from scratch) to MLOps pipelines on AWS.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- PRELOADER -->
-  <div id="preloader">
-    <div class="pre-box">
-      <span class="pre-logo">NL</span>
-      <div class="pre-bar"><div class="pre-fill" id="preFill"></div></div>
-      <span class="pre-pct" id="prePct">0%</span>
+<canvas id="loom-canvas" aria-hidden="true"></canvas>
+
+<div class="noise-overlay" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <a href="#top" class="nav__mark">NL</a>
+  <nav class="nav__links">
+    <a href="#about">About</a>
+    <a href="#stack">Stack</a>
+    <a href="#path">Path</a>
+    <a href="#work">Work</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <a class="nav__resume" href="mailto:nagarajloni209@gmail.com">Say hello</a>
+  <button class="nav__burger" id="burger" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <p class="eyebrow reveal">Computer Science, BITM Ballari · 2022–2026</p>
+    <h1 class="hero__title reveal">
+      <span class="hero__title-line">Nagaraj</span>
+      <span class="hero__title-line hero__title-line--accent">Loni</span>
+    </h1>
+    <p class="hero__lede reveal">
+      I build language models the way a weaver builds cloth — thread by thread, from
+      raw text to a working mind. <span class="hl">KannadaLM</span> is the proof: a
+      7.32M-parameter LLM trained from absolute scratch, in a language 60M people
+      speak and almost none were building for.
+    </p>
+    <div class="hero__actions reveal">
+      <a href="#work" class="btn btn--primary">See the work</a>
+      <a href="mailto:nagarajloni209@gmail.com" class="btn btn--ghost">nagarajloni209@gmail.com</a>
     </div>
-  </div>
-
-  <!-- THREE.JS CANVAS -->
-  <canvas id="three-canvas"></canvas>
-
-  <!-- GRAIN OVERLAY -->
-  <div class="grain"></div>
-
-  <!-- CURSOR -->
-  <div id="cur-dot"></div>
-  <div id="cur-ring"></div>
-
-  <!-- ═══ NAV ═══ -->
-  <header id="site-nav">
-    <div class="nav-brand">NL<span class="cursor-blink">_</span></div>
-    <nav class="nav-menu">
-      <a href="#about">About</a>
-      <a href="#skills">Skills</a>
-      <a href="#projects">Projects</a>
-      <a href="#experience">Experience</a>
-      <a href="#contact">Contact</a>
-    </nav>
-    <a href="mailto:nagarajloni209@gmail.com" class="nav-hire">Hire Me ↗</a>
-  </header>
-
-  <main>
-
-    <!-- ═══ HERO ═══ -->
-    <section id="hero">
-      <div class="hero-inner">
-        <div class="hero-eyebrow">
-          <span class="live-dot"></span>
-          Available for opportunities &nbsp;·&nbsp; Final-year CS Student &nbsp;·&nbsp; Karnataka, India
-        </div>
-
-        <h1 class="hero-name">
-          <span class="hn-solid">NAGARAJ</span>
-          <span class="hn-outline">LONI</span>
-        </h1>
-
-        <div class="hero-bottom">
-          <p class="hero-role">
-            Full‑Stack Developer<br/>&amp; ML Engineer
-          </p>
-          <div class="hero-divider"></div>
-          <p class="hero-desc">
-            Building scalable systems with<br/>
-            Java · Python · React · Node.js · AWS
-          </p>
-          <div class="hero-ctas">
-            <a href="#projects" class="btn-solid">View Projects</a>
-            <a href="#contact" class="btn-outline">Get in Touch</a>
-          </div>
-        </div>
+    <div class="hero__stats reveal">
+      <div class="stat">
+        <span class="stat__num">7.32M</span>
+        <span class="stat__label">params, trained from zero</span>
       </div>
-
-      <div class="hero-scroll-hint">
-        <div class="scroll-bar"></div>
-        <span>SCROLL</span>
+      <div class="stat">
+        <span class="stat__num">₹0</span>
+        <span class="stat__label">training cost, CPU-only</span>
       </div>
-
-      <aside class="hero-sidebar">
-        <a href="https://github.com/nsgowebjavaprog" target="_blank" rel="noopener" class="hs-link">GitHub</a>
-        <a href="https://linkedin.com" target="_blank" rel="noopener" class="hs-link">LinkedIn</a>
-        <a href="https://leetcode.com" target="_blank" rel="noopener" class="hs-link">LeetCode</a>
-        <div class="hs-line"></div>
-      </aside>
-    </section>
-
-    <!-- ═══ ABOUT ═══ -->
-    <section id="about" class="section">
-      <p class="sec-num">01</p>
-      <div class="about-grid">
-        <div class="about-title-col">
-          <h2 class="sec-title">
-            Building<br/>the <em>future</em>,<br/>one commit<br/>at a time.
-          </h2>
-        </div>
-        <div class="about-body-col">
-          <p class="body-text">
-            I'm a final‑year Computer Science student at <strong>BITM Ballari</strong> with a CGPA of <strong>9.26/10</strong>. I'm passionate about crafting efficient, production-ready software that solves real problems at scale.
-          </p>
-          <p class="body-text">
-            From real‑time video classrooms to complete MLOps pipelines and AI-powered career tools — I connect engineering depth with user-facing polish. Skilled in <strong>Redis, MongoDB, ETL pipelines, and AWS</strong>.
-          </p>
-          <div class="stats-row">
-            <div class="stat-box">
-              <strong class="sn" data-target="500" data-suffix="+">0+</strong>
-              <span>LeetCode Problems</span>
-            </div>
-            <div class="stat-box">
-              <strong class="sn" data-target="10">0</strong>
-              <span>Badges Earned</span>
-            </div>
-            <div class="stat-box">
-              <strong class="sn" data-target="9.26" data-decimal="true">0</strong>
-              <span>CGPA (7th Sem)</span>
-            </div>
-          </div>
-          <div class="info-card">
-            <div class="ic-row">
-              <span class="ic-label">Email</span>
-              <a href="mailto:nagarajloni209@gmail.com" class="ic-val">nagarajloni209@gmail.com</a>
-            </div>
-            <div class="ic-row">
-              <span class="ic-label">Phone</span>
-              <a href="tel:+916361544673" class="ic-val">+91 6361 544 673</a>
-            </div>
-            <div class="ic-row">
-              <span class="ic-label">DOB</span>
-              <span class="ic-val">01 Jun 2004</span>
-            </div>
-            <div class="ic-row">
-              <span class="ic-label">Location</span>
-              <span class="ic-val">Karnataka, India</span>
-            </div>
-          </div>
-        </div>
+      <div class="stat">
+        <span class="stat__num">9.29</span>
+        <span class="stat__label">CGPA / 10</span>
       </div>
-    </section>
-
-    <!-- ═══ SKILLS ═══ -->
-    <section id="skills" class="section">
-      <p class="sec-num">02</p>
-      <h2 class="sec-title">Tech <em>Arsenal</em></h2>
-      <div class="skills-grid">
-
-        <div class="sk-card">
-          <div class="sk-header">
-            <span class="sk-glyph">{ }</span>
-            <h3>Programming &amp; DB</h3>
-          </div>
-          <div class="sk-tags">
-            <span>Java</span><span>Python</span><span>SQL</span><span>MongoDB</span><span>Redis</span>
-          </div>
-        </div>
-
-        <div class="sk-card">
-          <div class="sk-header">
-            <span class="sk-glyph">⟨/⟩</span>
-            <h3>Web Development</h3>
-          </div>
-          <div class="sk-tags">
-            <span>HTML</span><span>CSS</span><span>JavaScript</span><span>React</span>
-            <span>Next.js</span><span>Node.js</span><span>Express.js</span><span>REST APIs</span>
-          </div>
-        </div>
-
-        <div class="sk-card">
-          <div class="sk-header">
-            <span class="sk-glyph">◈</span>
-            <h3>CS Fundamentals</h3>
-          </div>
-          <div class="sk-tags">
-            <span>DSA</span><span>OOPs</span><span>OS</span><span>System Design</span><span>Problem Solving</span>
-          </div>
-        </div>
-
-        <div class="sk-card">
-          <div class="sk-header">
-            <span class="sk-glyph">⚙</span>
-            <h3>AI / ML &amp; Cloud</h3>
-          </div>
-          <div class="sk-tags">
-            <span>NumPy</span><span>Pandas</span><span>Gen AI</span><span>LLM</span>
-            <span>RAG</span><span>MLOps</span><span>Docker</span><span>Kubernetes</span><span>AWS</span>
-          </div>
-        </div>
-
+      <div class="stat">
+        <span class="stat__num">60M+</span>
+        <span class="stat__label">Kannada speakers reached</span>
       </div>
-    </section>
+    </div>
+    <div class="scroll-cue" aria-hidden="true"><span></span></div>
+  </section>
 
-    <!-- ═══ PROJECTS ═══ -->
-    <section id="projects" class="section">
-      <p class="sec-num">03</p>
-      <h2 class="sec-title">Selected <em>Work</em></h2>
+  <!-- ABOUT -->
+  <section class="section" id="about">
+    <div class="section__head reveal">
+      <span class="section__tag">01 — About</span>
+      <h2>Small models, real problems.</h2>
+    </div>
+    <div class="about__grid">
+      <p class="about__lead reveal">
+        I'm a final-year Computer Science student who cares more about whether a
+        model actually ships than how large it is. Most of my work sits at the
+        seam between research and operations: training pipelines that run end to
+        end, versioned data, tracked experiments, and deployments that survive
+        contact with real traffic.
+      </p>
+      <p class="about__lead reveal">
+        KannadaLM started from a gap I kept running into — almost no open
+        language tooling exists for Kannada on its own terms. So I wrote the
+        tokenizer, cleaned the corpus, trained the transformer, and shipped it
+        to Hugging Face, entirely on CPU. The rest of my work — a containerized
+        insurance-risk platform, an AWS internship, a DVC/MLflow pipeline —
+        is the same instinct applied to more conventional ground: build the
+        whole thing, not just the model.
+      </p>
+    </div>
+  </section>
 
-      <div class="proj-list">
+  <!-- STACK -->
+  <section class="section section--surface" id="stack">
+    <div class="section__head reveal">
+      <span class="section__tag">02 — Stack</span>
+      <h2>What I reach for.</h2>
+    </div>
+    <div class="stack__grid">
+      <article class="stack__card reveal">
+        <h3>Languages &amp; Data</h3>
+        <ul>
+          <li>Python</li>
+          <li>SQL</li>
+          <li>Data Structures &amp; Algorithms</li>
+          <li>Operating Systems</li>
+          <li>DBMS</li>
+          <li>Object-Oriented Programming</li>
+        </ul>
+      </article>
+      <article class="stack__card stack__card--featured reveal">
+        <h3>AI / ML / NLP</h3>
+        <ul>
+          <li>PyTorch</li>
+          <li>Hugging Face</li>
+          <li>LangChain · CrewAI</li>
+          <li>Large Language Models</li>
+          <li>Retrieval-Augmented Generation</li>
+          <li>NumPy · Pandas · Matplotlib</li>
+        </ul>
+      </article>
+      <article class="stack__card reveal">
+        <h3>MLOps &amp; Cloud</h3>
+        <ul>
+          <li>MLflow</li>
+          <li>DVC</li>
+          <li>Docker · Kubernetes</li>
+          <li>Git · CI/CD pipelines</li>
+          <li>AWS (S3, EC2, IAM)</li>
+        </ul>
+      </article>
+    </div>
+  </section>
 
-        <div class="proj-row">
-          <div class="pr-left">
-            <span class="pr-num">01</span>
-            <span class="pr-date">Jul – Aug 2024</span>
-            <div class="pr-tags"><span>WebRTC</span><span>Socket.IO</span><span>MongoDB</span></div>
-          </div>
-          <div class="pr-main">
-            <h3 class="pr-title">Live Virtual Classroom</h3>
-            <p class="pr-desc">
-              A real-time video conferencing application with screen &amp; file sharing and live chat. Built using HTML, CSS, JavaScript, WebRTC, Socket.IO, and MongoDB — engineered for seamless communication and high performance at scale.
-            </p>
-            <div class="pr-stack">HTML · CSS · JavaScript · WebRTC · Socket.IO · MongoDB</div>
-          </div>
-          <div class="pr-right">
-            <a href="https://github.com/nsgowebjavaprog" target="_blank" rel="noopener" class="pr-gh-btn">
-              <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
-                <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
-              </svg>
-              GitHub ↗
-            </a>
-          </div>
+  <!-- PATH / TIMELINE -->
+  <section class="section" id="path">
+    <div class="section__head reveal">
+      <span class="section__tag">03 — Path</span>
+      <h2>How I got here.</h2>
+    </div>
+    <ol class="timeline">
+      <li class="timeline__item reveal">
+        <div class="timeline__when">2020 – 2022</div>
+        <div class="timeline__body">
+          <h3>2nd PUC</h3>
+          <p>BIPU, Badagandi, Karnataka — 86.67%</p>
         </div>
-
-        <div class="proj-row proj-row--featured">
-          <div class="pr-left">
-            <span class="pr-num">02</span>
-            <span class="pr-date">Dec 2024 – Jan 2025</span>
-            <div class="pr-tags"><span>Docker</span><span>K8s</span><span>AWS</span></div>
-            <span class="pr-featured-badge">Featured</span>
-          </div>
-          <div class="pr-main">
-            <h3 class="pr-title">Vehicle Insurance Prediction Platform</h3>
-            <p class="pr-desc">
-              End-to-end ML platform containerised with <strong>Docker</strong> and orchestrated via <strong>Kubernetes</strong>. Complete MLOps pipeline using Git, DVC &amp; MLflow for versioning, training &amp; testing. Automated CI/CD deployment via <strong>AWS S3</strong>.
-            </p>
-            <div class="pr-stack">Python · Docker · Kubernetes · MLflow · DVC · Git · AWS S3</div>
-          </div>
-          <div class="pr-right">
-            <a href="https://github.com/nsgowebjavaprog" target="_blank" rel="noopener" class="pr-gh-btn">
-              <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
-                <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
-              </svg>
-              GitHub ↗
-            </a>
-          </div>
+      </li>
+      <li class="timeline__item reveal">
+        <div class="timeline__when">2022 – 2026</div>
+        <div class="timeline__body">
+          <h3>BE, Computer Science</h3>
+          <p>BITM Ballari, Karnataka — CGPA 9.29 / 10</p>
         </div>
-
-        <div class="proj-row">
-          <div class="pr-left">
-            <span class="pr-num">03</span>
-            <span class="pr-date">Mar – Apr 2025</span>
-            <div class="pr-tags"><span>AI/LLM</span><span>Next.js</span><span>PostgreSQL</span></div>
-          </div>
-          <div class="pr-main">
-            <h3 class="pr-title">CareerCraft AI</h3>
-            <p class="pr-desc">
-              AI-powered interview prep &amp; resume builder with live ATS scoring. Users generate resumes, compare against job descriptions, and conduct AI-led interviews tailored to their role &amp; experience — delivering a personalised, interactive job prep experience.
-            </p>
-            <div class="pr-stack">React · Next.js · Tailwind CSS · JavaScript · PostgreSQL · LLM · RAG</div>
-          </div>
-          <div class="pr-right">
-            <a href="https://github.com/nsgowebjavaprog" target="_blank" rel="noopener" class="pr-gh-btn">
-              <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
-                <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
-              </svg>
-              GitHub ↗
-            </a>
-          </div>
+      </li>
+      <li class="timeline__item reveal">
+        <div class="timeline__when">Jan – Mar 2026</div>
+        <div class="timeline__body">
+          <h3>Virtual Internship, AWS Cloud Computing</h3>
+          <p>SmartBridge — core AWS services and cloud architecture, applied
+          directly to deploying the Vehicle Insurance Prediction Platform
+          with S3-driven CI/CD.</p>
         </div>
+      </li>
+      <li class="timeline__item reveal">
+        <div class="timeline__when">Apr – May 2026</div>
+        <div class="timeline__body">
+          <h3>KannadaLM</h3>
+          <p>First monolingual Kannada LLM, trained from scratch and
+          open-sourced on Hugging Face.</p>
+        </div>
+      </li>
+    </ol>
+  </section>
 
+  <!-- WORK / PROJECTS -->
+  <section class="section section--surface" id="work">
+    <div class="section__head reveal">
+      <span class="section__tag">04 — Work</span>
+      <h2>Two builds worth a closer look.</h2>
+    </div>
+
+    <article class="project project--feature reveal">
+      <div class="project__meta">
+        <span class="project__index">01</span>
+        <span class="project__date">Apr – May 2026</span>
       </div>
-    </section>
-
-    <!-- ═══ EXPERIENCE ═══ -->
-    <section id="experience" class="section">
-      <p class="sec-num">04</p>
-      <div class="exp-wrap">
-
-        <div class="exp-col">
-          <h2 class="sec-title">Work &amp;<br/><em>Education</em></h2>
-          <div class="tl-list">
-            <div class="tl-entry">
-              <div class="tl-marker"></div>
-              <div class="tl-content">
-                <span class="tl-year-tag">Apr – May 2024</span>
-                <h4>Python Intern — EZ Company</h4>
-                <p>Built a Python‑based stadium services management system with data integration and user-friendly interfaces.</p>
-              </div>
-            </div>
-            <div class="tl-entry">
-              <div class="tl-marker"></div>
-              <div class="tl-content">
-                <span class="tl-year-tag">2022 – 2026</span>
-                <h4>B.E. Computer Science — BITM Ballari</h4>
-                <p>CGPA: 9.26/10 · Specialising in full‑stack development, ML systems, and cloud infrastructure.</p>
-              </div>
-            </div>
-            <div class="tl-entry">
-              <div class="tl-marker"></div>
-              <div class="tl-content">
-                <span class="tl-year-tag">2020 – 2022</span>
-                <h4>2nd PUC — BIPU Badagandi</h4>
-                <p>86.67% · Science &amp; Mathematics with distinction.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="exp-col">
-          <h2 class="sec-title"><em>Honours &amp;</em><br/>Achievements</h2>
-          <div class="ach-list">
-            <div class="ach-entry">
-              <div class="ach-icon">🏆</div>
-              <div>
-                <h4>500+ LeetCode Problems</h4>
-                <p>Solved 500+ algorithmic challenges earning 10 badges — top competitive programmer.</p>
-              </div>
-            </div>
-            <div class="ach-entry">
-              <div class="ach-icon">🥇</div>
-              <div>
-                <h4>Best Tech Stack User — National Hackathon</h4>
-                <p>Awarded for innovative and efficient technology stack usage at a national-level competition.</p>
-              </div>
-            </div>
-            <div class="ach-entry">
-              <div class="ach-icon">⚡</div>
-              <div>
-                <h4>Hackathon Finalist</h4>
-                <p>Selected for final rounds at inter‑college and state‑level hackathons across Karnataka.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
+      <h3 class="project__title">KannadaLM</h3>
+      <p class="project__tag-line">The first monolingual Kannada LLM — trained, not fine-tuned.</p>
+      <p class="project__desc">
+        A 7.32M-parameter transformer trained entirely from scratch on Kannada
+        text, with a purpose-built 16K-vocabulary BPE tokenizer that never
+        touches an English token. The full pipeline — download, clean,
+        tokenize, train, evaluate, deploy — runs on CPU alone, at zero
+        infrastructure cost, and ships as an open weight on Hugging Face.
+      </p>
+      <ul class="project__facts">
+        <li><span>Params</span>7.32M, from scratch</li>
+        <li><span>Vocabulary</span>16K BPE, Kannada-only</li>
+        <li><span>Compute</span>100% CPU, ₹0 cost</li>
+        <li><span>Reach</span>60M+ Kannada speakers</li>
+      </ul>
+      <div class="project__stack">
+        <span>PyTorch</span><span>Transformer architecture</span><span>Hugging Face</span><span>Tokenizer design</span>
       </div>
-    </section>
+    </article>
 
-    <!-- ═══ CONTACT ═══ -->
-    <section id="contact" class="section">
-      <p class="sec-num">05</p>
-      <div class="contact-wrap">
-        <h2 class="contact-big">
-          Let's Build<br/><em>Something</em><br/>Great<span class="cta-dot">.</span>
-        </h2>
-        <div class="contact-panel">
-          <p class="contact-tagline">Open to full-time roles, internships, freelance &amp; open-source collaborations.</p>
-          <div class="clinks">
-            <a href="mailto:nagarajloni209@gmail.com" class="clink">
-              <span class="clink-type">Email</span>
-              <span class="clink-text">nagarajloni209@gmail.com</span>
-              <span class="clink-arrow">↗</span>
-            </a>
-            <a href="tel:+916361544673" class="clink">
-              <span class="clink-type">Phone</span>
-              <span class="clink-text">+91 6361 544 673</span>
-              <span class="clink-arrow">↗</span>
-            </a>
-            <a href="https://github.com/nsgowebjavaprog" target="_blank" rel="noopener" class="clink">
-              <span class="clink-type">GitHub</span>
-              <span class="clink-text">github.com/nsgowebjavaprog</span>
-              <span class="clink-arrow">↗</span>
-            </a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener" class="clink">
-              <span class="clink-type">LinkedIn</span>
-              <span class="clink-text">linkedin.com/in/nagarajloni</span>
-              <span class="clink-arrow">↗</span>
-            </a>
-          </div>
-        </div>
+    <article class="project reveal">
+      <div class="project__meta">
+        <span class="project__index">02</span>
+        <span class="project__date">Jan – Mar 2026</span>
       </div>
-    </section>
+      <h3 class="project__title">Vehicle Insurance Prediction Platform</h3>
+      <p class="project__tag-line">An MLOps pipeline built to be retrained, not just run once.</p>
+      <p class="project__desc">
+        An end-to-end risk-prediction platform, containerized with Docker and
+        orchestrated with Kubernetes. Git, DVC, and MLflow together handle
+        versioning, training, and testing, while AWS S3 drives automated
+        CI/CD deployment — reaching production-grade reliability with
+        automated retraining built in from day one.
+      </p>
+      <div class="project__stack">
+        <span>Docker</span><span>Kubernetes</span><span>DVC</span><span>MLflow</span><span>AWS S3</span>
+      </div>
+    </article>
+  </section>
 
-  </main>
+  <!-- CERTIFICATIONS -->
+  <section class="section" id="proof">
+    <div class="section__head reveal">
+      <span class="section__tag">05 — Proof</span>
+      <h2>Certifications &amp; recognition.</h2>
+    </div>
+    <div class="proof__grid">
+      <div class="proof__card reveal">
+        <h3>AWS Certified Cloud Practitioner</h3>
+        <p>Amazon Web Services</p>
+      </div>
+      <div class="proof__card reveal">
+        <h3>Digital Skills Readiness — Data Science</h3>
+        <p>Wipro TalentNext</p>
+      </div>
+      <div class="proof__card reveal">
+        <h3>Best Tech Stack User</h3>
+        <p>National-Level Hackathon</p>
+      </div>
+    </div>
+  </section>
 
-  <footer id="site-footer">
-    <span>© 2025 Nagaraj Loni</span>
-    <span>Designed &amp; Built with ♥</span>
-    <span>Karnataka, India</span>
+  <!-- CONTACT -->
+  <footer class="contact" id="contact">
+    <div class="contact__inner reveal">
+      <span class="section__tag">06 — Contact</span>
+      <h2>Building something that needs an extra pair of hands on the model side?</h2>
+      <a href="mailto:nagarajloni209@gmail.com" class="btn btn--primary btn--lg">nagarajloni209@gmail.com</a>
+      <div class="contact__links">
+        <a href="tel:+916361544673">+91 6361 544 673</a>
+        <a href="#" data-fill="leetcode">LeetCode</a>
+        <a href="#" data-fill="github">GitHub</a>
+        <a href="#" data-fill="linkedin">LinkedIn</a>
+      </div>
+      <p class="contact__foot">© 2026 Nagaraj Loni. Built with HTML, CSS, and three.js.</p>
+    </div>
   </footer>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="three-bg.js"></script>
-  <script src="main.js"></script>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+<script src="three-bg.js"></script>
+<script src="main.js"></script>
 </body>
 </html>
