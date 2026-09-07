@@ -1,79 +1,122 @@
-/* ============================================================
-   MAIN.JS
-   Scroll reveals, nav behavior, small quality-of-life details.
-   No frameworks — plain DOM APIs only.
-   ============================================================ */
-(function () {
-  'use strict';
+document.addEventListener('DOMContentLoaded', () => {
 
-  /* ---------- Scroll-triggered reveals ---------- */
-  const revealEls = document.querySelectorAll('.reveal');
+  /* ---------------------------------------------------
+     Mobile nav toggle
+  --------------------------------------------------- */
+  const navToggle = document.getElementById('navToggle');
+  const pipelineNav = document.getElementById('pipelineNav');
 
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry, i) => {
-          if (entry.isIntersecting) {
-            const el = entry.target;
-            const delay = (i % 4) * 60;
-            setTimeout(() => el.classList.add('is-visible'), delay);
-            io.unobserve(el);
-          }
-        });
-      },
-      { threshold: 0.15, rootMargin: '0px 0px -8% 0px' }
-    );
-    revealEls.forEach((el) => io.observe(el));
-  } else {
-    revealEls.forEach((el) => el.classList.add('is-visible'));
+  if (navToggle && pipelineNav) {
+    navToggle.addEventListener('click', () => {
+      const isOpen = pipelineNav.classList.toggle('is-open');
+      navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+
+    // close nav after tapping a link (mobile)
+    pipelineNav.querySelectorAll('.pipeline__link').forEach(link => {
+      link.addEventListener('click', () => {
+        pipelineNav.classList.remove('is-open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
   }
 
-  /* ---------- Nav: shrink / solidify on scroll ---------- */
-  const nav = document.getElementById('nav');
-  let lastY = window.scrollY;
+  /* ---------------------------------------------------
+     Active-stage highlighting as the user scrolls
+  --------------------------------------------------- */
+  const sections = document.querySelectorAll('main .section');
+  const navLinks = document.querySelectorAll('.pipeline__link');
 
-  window.addEventListener(
-    'scroll',
-    () => {
-      const y = window.scrollY;
-      if (y > 40) {
-        nav.style.background =
-          'linear-gradient(to bottom, rgba(11,14,20,0.92), rgba(11,14,20,0.7))';
-        nav.style.borderBottom = '1px solid rgba(237,232,218,0.08)';
+  const linkFor = (id) => document.querySelector(`.pipeline__link[href="#${id}"]`);
+
+  if ('IntersectionObserver' in window && sections.length) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const activeLink = linkFor(entry.target.id);
+          if (!activeLink) return;
+          navLinks.forEach(l => l.classList.remove('is-active'));
+          activeLink.classList.add('is-active');
+        }
+      });
+    }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
+
+    sections.forEach(section => observer.observe(section));
+  }
+
+  /* ---------------------------------------------------
+     FAQ accordion
+  --------------------------------------------------- */
+  const faqButtons = document.querySelectorAll('.faq-item__q');
+
+  faqButtons.forEach(btn => {
+    const answer = btn.nextElementSibling;
+
+    btn.addEventListener('click', () => {
+      const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+
+      // close all other answers (single-open accordion)
+      faqButtons.forEach(other => {
+        if (other !== btn) {
+          other.setAttribute('aria-expanded', 'false');
+          other.nextElementSibling.style.maxHeight = null;
+        }
+      });
+
+      if (isExpanded) {
+        btn.setAttribute('aria-expanded', 'false');
+        answer.style.maxHeight = null;
       } else {
-        nav.style.background =
-          'linear-gradient(to bottom, rgba(11,14,20,0.85), rgba(11,14,20,0))';
-        nav.style.borderBottom = 'none';
-      }
-      lastY = y;
-    },
-    { passive: true }
-  );
-
-  /* ---------- Smooth in-page anchor scrolling ---------- */
-  document.querySelectorAll('a[href^="#"]').forEach((link) => {
-    link.addEventListener('click', (e) => {
-      const id = link.getAttribute('href');
-      if (id.length < 2) return;
-      const target = document.querySelector(id);
-      if (!target) return;
-      e.preventDefault();
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-  });
-
-  /* ---------- Placeholder-link notice ----------
-     LeetCode / GitHub / LinkedIn URLs were not present on the
-     source resume. They're wired up as data-fill targets so
-     they're easy to find and swap for the real profile links. */
-  document.querySelectorAll('[data-fill]').forEach((el) => {
-    el.addEventListener('click', (e) => {
-      if (el.getAttribute('href') === '#') {
-        e.preventDefault();
-        console.info(
-          `[portfolio] Add the real ${el.dataset.fill} URL to this link's href.`
-        );
+        btn.setAttribute('aria-expanded', 'true');
+        answer.style.maxHeight = answer.scrollHeight + 'px';
       }
     });
   });
-})();
+
+  /* ---------------------------------------------------
+     Certificate lightbox
+  --------------------------------------------------- */
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  const lightboxCaption = document.getElementById('lightboxCaption');
+  const lightboxClose = document.getElementById('lightboxClose');
+  const certCards = document.querySelectorAll('.cert-card');
+
+  function openLightbox(src, caption) {
+    lightboxImg.src = src;
+    lightboxImg.alt = caption;
+    lightboxCaption.textContent = caption;
+    lightbox.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('is-open');
+    lightboxImg.src = '';
+    document.body.style.overflow = '';
+  }
+
+  certCards.forEach(card => {
+    card.addEventListener('click', () => {
+      openLightbox(card.dataset.img, card.dataset.caption || '');
+    });
+  });
+
+  lightboxClose.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && lightbox.classList.contains('is-open')) closeLightbox();
+  });
+
+  /* ---------------------------------------------------
+     Footer year / status line — small live touch
+  --------------------------------------------------- */
+  const footerEnd = document.querySelector('.footer__end');
+  if (footerEnd) {
+    const year = new Date().getFullYear();
+    footerEnd.textContent = `status: build passing · page rendered ${year}`;
+  }
+
+});
