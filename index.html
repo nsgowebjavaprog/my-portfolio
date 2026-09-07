@@ -3,674 +3,404 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nagaraj Loni — AI/ML Engineer</title>
+<title>Nagaraj Loni — ML &amp; AI Engineer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg:#0e1520;
-    --bg-raise:#141d29;
-    --surface:#182333;
-    --line:#26344a;
-    --text:#e7edf5;
-    --text-dim:#8b98a9;
-    --amber:#ffa337;
-    --teal:#54d6c4;
-    --radius:2px;
-  }
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    margin:0;
-    background:var(--bg);
-    color:var(--text);
-    font-family:'IBM Plex Sans',sans-serif;
-    font-size:16px;
-    line-height:1.6;
-    -webkit-font-smoothing:antialiased;
-  }
-  h1,h2,h3,h4{
-    font-family:'Space Grotesk',sans-serif;
-    margin:0;
-    font-weight:600;
-    color:var(--text);
-  }
-  .mono{font-family:'IBM Plex Mono',monospace;}
-  a{color:var(--amber);text-decoration:none;}
-  a:hover{text-decoration:underline;}
-  ::selection{background:var(--amber);color:#0e1520;}
-  :focus-visible{outline:2px solid var(--teal);outline-offset:3px;}
-
-  .wrap{max-width:920px;margin:0 auto;padding:0 28px;}
-
-  /* ---------- NAV ---------- */
-  header.topbar{
-    position:sticky;top:0;z-index:50;
-    background:rgba(14,21,32,0.88);
-    backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--line);
-  }
-  .topbar-inner{
-    max-width:920px;margin:0 auto;padding:14px 28px;
-    display:flex;align-items:center;justify-content:space-between;
-    gap:16px;
-  }
-  .brand{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:17px;letter-spacing:0.2px;}
-  .brand span{color:var(--amber);}
-  nav.links{display:flex;gap:18px;flex-wrap:wrap;}
-  nav.links a{
-    font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--text-dim);
-    padding:6px 2px;border-bottom:1px solid transparent;
-  }
-  nav.links a:hover{color:var(--text);text-decoration:none;border-bottom:1px solid var(--amber);}
-
-  /* ---------- HERO / SECTION 1 ---------- */
-  .hero{
-    padding:72px 0 56px;
-    border-bottom:1px solid var(--line);
-    position:relative;
-    overflow:hidden;
-  }
-  .hero-grid{display:flex;flex-direction:column;gap:28px;}
-  .eyebrow-row{display:flex;align-items:center;gap:10px;color:var(--text-dim);font-family:'IBM Plex Mono',monospace;font-size:13px;}
-  .dot{width:7px;height:7px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 3px rgba(84,214,196,0.15);}
-  .hero h1{font-size:46px;line-height:1.12;letter-spacing:-0.5px;max-width:640px;}
-  .hero .role{color:var(--text-dim);font-size:18px;margin-top:10px;max-width:560px;}
-  .hero .role b{color:var(--teal);font-weight:600;}
-
-  .contact-row{
-    display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;
-  }
-  .contact-row a{
-    display:flex;align-items:center;gap:7px;
-    padding:9px 14px;
-    border:1px solid var(--line);
-    border-radius:var(--radius);
-    font-family:'IBM Plex Mono',monospace;font-size:13px;
-    color:var(--text);
-    background:var(--surface);
-    transition:border-color .15s ease, transform .15s ease;
-  }
-  .contact-row a:hover{border-color:var(--amber);text-decoration:none;transform:translateY(-1px);}
-  .contact-row svg{width:15px;height:15px;stroke:var(--amber);flex-shrink:0;}
-
-  /* pipeline diagram */
-  .pipeline{
-    margin-top:36px;
-    display:flex;align-items:center;gap:0;
-    font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--text-dim);
-    overflow-x:auto;
-    padding-bottom:6px;
-  }
-  .pipe-node{
-    flex:0 0 auto;
-    border:1px solid var(--line);
-    background:var(--surface);
-    padding:9px 14px;
-    border-radius:var(--radius);
-    white-space:nowrap;
-  }
-  .pipe-node b{color:var(--text);font-weight:500;}
-  .pipe-arrow{flex:0 0 auto;width:34px;height:1px;background:var(--line);position:relative;margin:0 4px;}
-  .pipe-arrow::after{
-    content:'';position:absolute;right:0;top:-3px;
-    border:3px solid transparent;border-left-color:var(--line);
-  }
-
-  /* ---------- SECTION GENERIC ---------- */
-  section{padding:64px 0;border-bottom:1px solid var(--line);}
-  section:last-of-type{border-bottom:none;}
-  .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:30px;}
-  .sec-num{font-family:'IBM Plex Mono',monospace;color:var(--amber);font-size:13px;}
-  .sec-head h2{font-size:26px;}
-  .sec-sub{color:var(--text-dim);font-size:15px;max-width:560px;margin-top:-16px;margin-bottom:28px;}
-
-  /* ---------- ABOUT ---------- */
-  .about-body{display:grid;grid-template-columns:1.4fr 1fr;gap:40px;}
-  .about-body p{color:#cbd4e0;font-size:16px;margin:0 0 14px;}
-  .about-stats{display:flex;flex-direction:column;gap:14px;}
-  .stat{
-    border:1px solid var(--line);background:var(--surface);
-    padding:16px 18px;border-radius:var(--radius);
-  }
-  .stat .num{font-family:'Space Grotesk',sans-serif;font-size:26px;color:var(--teal);font-weight:600;}
-  .stat .lbl{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--text-dim);margin-top:2px;}
-
-  /* ---------- EDUCATION ---------- */
-  .edu-item{
-    display:grid;grid-template-columns:170px 1fr auto;gap:18px;
-    padding:20px 0;border-top:1px solid var(--line);
-    align-items:start;
-  }
-  .edu-item:first-child{border-top:none;}
-  .edu-time{font-family:'IBM Plex Mono',monospace;color:var(--text-dim);font-size:13px;}
-  .edu-name{font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:600;}
-  .edu-loc{color:var(--text-dim);font-size:14px;margin-top:3px;}
-  .edu-score{
-    font-family:'IBM Plex Mono',monospace;font-size:14px;color:var(--teal);
-    border:1px solid var(--line);padding:6px 12px;border-radius:var(--radius);white-space:nowrap;
-  }
-
-  /* ---------- SKILLS ---------- */
-  .skill-groups{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
-  .skill-card{border:1px solid var(--line);background:var(--surface);padding:20px;border-radius:var(--radius);}
-  .skill-card h3{font-size:14px;font-family:'IBM Plex Mono',monospace;color:var(--amber);text-transform:none;margin-bottom:14px;font-weight:500;}
-  .chip-row{display:flex;flex-wrap:wrap;gap:8px;}
-  .chip{
-    font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--text);
-    border:1px solid var(--line);padding:6px 10px;border-radius:var(--radius);
-    background:var(--bg-raise);
-  }
-
-  /* ---------- PROJECTS ---------- */
-  .project{
-    border:1px solid var(--line);background:var(--surface);
-    border-radius:var(--radius);padding:26px;margin-bottom:22px;
-  }
-  .project-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;}
-  .project-top h3{font-size:20px;}
-  .project-time{font-family:'IBM Plex Mono',monospace;color:var(--text-dim);font-size:12.5px;white-space:nowrap;padding-top:4px;}
-  .project-desc{color:#cbd4e0;margin:14px 0 16px;font-size:15px;}
-  .project-desc ul{margin:0;padding-left:20px;}
-  .project-desc li{margin-bottom:7px;}
-  .project-stack{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;}
-  .project-link{
-    display:inline-flex;align-items:center;gap:7px;
-    font-family:'IBM Plex Mono',monospace;font-size:13px;
-    border:1px solid var(--amber);color:var(--amber);
-    padding:8px 14px;border-radius:var(--radius);
-  }
-  .project-link:hover{background:var(--amber);color:var(--bg);text-decoration:none;}
-
-  /* ---------- EXPERIENCE (extra section) ---------- */
-  .exp-item{display:grid;grid-template-columns:150px 1fr;gap:20px;padding:20px 0;border-top:1px solid var(--line);}
-  .exp-item:first-child{border-top:none;}
-  .exp-time{font-family:'IBM Plex Mono',monospace;color:var(--text-dim);font-size:13px;}
-  .exp-body h3{font-size:17px;margin-bottom:8px;}
-  .exp-body ul{margin:0;padding-left:20px;color:#cbd4e0;font-size:14.5px;}
-  .exp-body li{margin-bottom:6px;}
-  .exp-cert-link{display:inline-block;margin-top:10px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;}
-
-  /* ---------- ACHIEVEMENTS ---------- */
-  .ach-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
-  .ach-card{
-    border:1px solid var(--line);background:var(--surface);border-radius:var(--radius);
-    overflow:hidden;display:flex;flex-direction:column;
-  }
-  .ach-card img{
-    width:100%;display:block;aspect-ratio:16/11;object-fit:cover;
-    border-bottom:1px solid var(--line);
-    background:#0a0f16;
-    cursor:zoom-in;
-  }
-  .ach-body{padding:16px 18px;flex:1;display:flex;flex-direction:column;}
-  .ach-tag{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--teal);margin-bottom:6px;}
-  .ach-body h3{font-size:16px;line-height:1.35;}
-  .ach-body p{color:var(--text-dim);font-size:13.5px;margin:8px 0 0;}
-
-  /* lightbox */
-  .lightbox{
-    position:fixed;inset:0;background:rgba(6,9,14,0.92);
-    display:none;align-items:center;justify-content:center;z-index:200;padding:32px;
-  }
-  .lightbox.open{display:flex;}
-  .lightbox img{max-width:min(900px,92vw);max-height:88vh;border:1px solid var(--line);border-radius:2px;}
-  .lightbox-close{
-    position:absolute;top:22px;right:28px;color:var(--text);font-family:'IBM Plex Mono',monospace;
-    font-size:13px;border:1px solid var(--line);padding:8px 14px;border-radius:2px;cursor:pointer;background:transparent;
-  }
-
-  /* ---------- HR Q&A ---------- */
-  .qa-item{border:1px solid var(--line);border-radius:var(--radius);margin-bottom:12px;background:var(--surface);overflow:hidden;}
-  .qa-q{
-    width:100%;text-align:left;background:transparent;border:none;color:var(--text);
-    font-family:'Space Grotesk',sans-serif;font-size:15.5px;font-weight:500;
-    padding:18px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:14px;
-  }
-  .qa-q .idx{color:var(--amber);font-family:'IBM Plex Mono',monospace;font-size:13px;margin-right:10px;}
-  .qa-q .chevron{flex-shrink:0;width:11px;height:11px;border-right:2px solid var(--text-dim);border-bottom:2px solid var(--text-dim);transform:rotate(45deg);transition:transform .2s ease;}
-  .qa-item.open .qa-q .chevron{transform:rotate(-135deg);}
-  .qa-a{
-    max-height:0;overflow:hidden;transition:max-height .28s ease;
-  }
-  .qa-a-inner{padding:0 20px 18px 20px;color:#cbd4e0;font-size:14.5px;line-height:1.65;}
-  .qa-a-inner .lbl{font-family:'IBM Plex Mono',monospace;color:var(--teal);font-size:12px;display:block;margin-bottom:6px;}
-
-  /* ---------- END / CTA ---------- */
-  .end-section{text-align:left;padding-top:70px;padding-bottom:70px;}
-  .end-inner{
-    border:1px solid var(--line);background:var(--surface);
-    padding:48px 40px;border-radius:var(--radius);
-    display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;
-  }
-  .end-inner h2{font-size:28px;max-width:460px;}
-  .end-inner p{color:var(--text-dim);margin-top:10px;max-width:420px;}
-  .end-cta{
-    font-family:'IBM Plex Mono',monospace;font-size:14px;color:var(--bg);
-    background:var(--amber);padding:14px 24px;border-radius:var(--radius);white-space:nowrap;
-  }
-  .end-cta:hover{opacity:0.9;text-decoration:none;}
-
-  /* ---------- FOOTER ---------- */
-  footer{padding:32px 0 40px;}
-  .footer-inner{
-    display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
-    color:var(--text-dim);font-family:'IBM Plex Mono',monospace;font-size:12.5px;
-  }
-  .footer-links{display:flex;gap:16px;flex-wrap:wrap;}
-  .footer-links a{color:var(--text-dim);}
-  .footer-links a:hover{color:var(--amber);}
-
-  @media (max-width:760px){
-    .about-body{grid-template-columns:1fr;}
-    .skill-groups{grid-template-columns:1fr;}
-    .ach-grid{grid-template-columns:1fr;}
-    .edu-item{grid-template-columns:1fr;gap:6px;}
-    .exp-item{grid-template-columns:1fr;gap:8px;}
-    .hero h1{font-size:34px;}
-    nav.links{display:none;}
-    .end-inner{padding:32px 24px;}
-  }
-  @media (prefers-reduced-motion: reduce){
-    html{scroll-behavior:auto;}
-    *{transition:none !important;}
-  }
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header class="topbar">
-  <div class="topbar-inner">
-    <div class="brand">nagaraj<span>.loni</span></div>
-    <nav class="links">
-      <a href="#about">about</a>
-      <a href="#education">education</a>
-      <a href="#skills">skills</a>
-      <a href="#projects">projects</a>
-      <a href="#achievements">achievements</a>
-      <a href="#experience">experience</a>
-      <a href="#hr">interview prep</a>
-    </nav>
-  </div>
-</header>
-
-<!-- ============ 1. LINKS / CONTACT SECTION ============ -->
-<section class="hero wrap" id="top">
-  <div class="hero-grid">
-    <div class="eyebrow-row"><span class="dot"></span>open to AI/ML & full-stack roles</div>
-    <div>
-      <h1>Nagaraj Loni</h1>
-      <p class="role">Computer science graduate building <b>production-grade ML pipelines</b> — from a monolingual LLM trained from scratch to FastAPI + React apps deployed on AWS and Docker.</p>
-    </div>
-
-    <div class="contact-row">
-      <a href="https://www.linkedin.com/in/nagaraj-loni-85a965308/" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-        LinkedIn
-      </a>
-      <a href="https://github.com/nsgowebjavaprog" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0010 18.13V22"/></svg>
-        GitHub
-      </a>
-      <a href="https://leetcode.com/u/NS258/" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M13 3l-8 9h6l-2 9 8-9h-6l2-9z"/></svg>
-        LeetCode
-      </a>
-      <a href="mailto:nagarajloni209@gmail.com">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg>
-        nagarajloni209@gmail.com
-      </a>
-      <a href="tel:+916361544673">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.99.36 1.97.68 2.9a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.18-1.18a2 2 0 012.11-.45c.93.32 1.91.55 2.9.68A2 2 0 0122 16.92z"/></svg>
-        +91 63615 44673
-      </a>
-    </div>
-
-    <div class="pipeline mono" aria-hidden="true">
-      <div class="pipe-node"><b>Data</b> · Pandas / NumPy</div>
-      <div class="pipe-arrow"></div>
-      <div class="pipe-node"><b>Train</b> · PyTorch / Scikit-learn</div>
-      <div class="pipe-arrow"></div>
-      <div class="pipe-node"><b>Track</b> · MLflow / DVC</div>
-      <div class="pipe-arrow"></div>
-      <div class="pipe-node"><b>Serve</b> · FastAPI</div>
-      <div class="pipe-arrow"></div>
-      <div class="pipe-node"><b>Ship</b> · Docker → AWS</div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 2. ABOUT ============ -->
-<section class="wrap" id="about">
-  <div class="sec-head"><span class="sec-num">02</span><h2>About me</h2></div>
-  <div class="about-body">
-    <div>
-      <p>I'm a final-year Computer Science student who got interested in machine learning the way most engineers do — by wanting to know what happens after the model trains. That question took me from experimenting with algorithms to building a monolingual LLM called <b style="color:var(--teal)">KannadaLM</b> from scratch, and then to shipping full MLOps pipelines with versioned data, tracked experiments, and automated deployment.</p>
-      <p>I care about the parts of ML that don't show up in a Jupyter notebook: reproducibility, CI/CD, containerization, and APIs that hold up under real traffic. My projects pair PyTorch and Scikit-learn on the modelling side with FastAPI, React, Docker, and AWS on the delivery side — because a model that isn't served reliably isn't finished.</p>
-      <p>Outside of coursework, I've picked up an AWS certification, published a research paper on AI-driven career intelligence, and competed in national and state-level hackathons. I'm currently looking for AI/ML engineering or full-stack roles where I can keep building systems end to end.</p>
-    </div>
-    <div class="about-stats">
-      <div class="stat"><div class="num">9.29 / 10</div><div class="lbl">CGPA · B.E. Computer Science</div></div>
-      <div class="stat"><div class="num">72% ROC-AUC</div><div class="lbl">Best model · churn prediction pipeline</div></div>
-      <div class="stat"><div class="num">20,000+</div><div class="lbl">Rows scored per batch request</div></div>
-      <div class="stat"><div class="num">6</div><div class="lbl">Certifications, publications & hackathons</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 3. EDUCATION ============ -->
-<section class="wrap" id="education">
-  <div class="sec-head"><span class="sec-num">03</span><h2>Education</h2></div>
-  <div class="edu-item">
-    <div class="edu-time mono">2022 — 2026</div>
-    <div>
-      <div class="edu-name">B.E. in Computer Science</div>
-      <div class="edu-loc">Ballari Institute of Technology and Management (BITM), Ballari, Karnataka</div>
-    </div>
-    <div class="edu-score">CGPA 9.29 / 10</div>
-  </div>
-  <div class="edu-item">
-    <div class="edu-time mono">2020 — 2022</div>
-    <div>
-      <div class="edu-name">2nd PUC (Senior Secondary)</div>
-      <div class="edu-loc">BIPU Badagandi, Karnataka</div>
-    </div>
-    <div class="edu-score">86.67%</div>
-  </div>
-</section>
-
-<!-- ============ 4. SKILLS ============ -->
-<section class="wrap" id="skills">
-  <div class="sec-head"><span class="sec-num">04</span><h2>Skills</h2></div>
-  <div class="skill-groups">
-    <div class="skill-card">
-      <h3>languages & databases</h3>
-      <div class="chip-row">
-        <span class="chip">Python</span><span class="chip">MySQL</span>
-      </div>
-    </div>
-    <div class="skill-card">
-      <h3>AI / ML & data science</h3>
-      <div class="chip-row">
-        <span class="chip">Machine Learning</span><span class="chip">Deep Learning</span>
-        <span class="chip">NLP</span><span class="chip">Generative AI</span>
-        <span class="chip">LLMs</span><span class="chip">RAG</span>
-        <span class="chip">Feature Engineering</span><span class="chip">PyTorch</span>
-        <span class="chip">LangChain</span><span class="chip">NumPy</span>
-        <span class="chip">Pandas</span><span class="chip">Matplotlib</span>
-        <span class="chip">Scikit-learn</span>
-      </div>
-    </div>
-    <div class="skill-card">
-      <h3>MLOps</h3>
-      <div class="chip-row">
-        <span class="chip">Docker</span><span class="chip">MLflow</span>
-        <span class="chip">DVC</span><span class="chip">CI/CD</span>
-        <span class="chip">Git</span><span class="chip">FastAPI</span>
-        <span class="chip">REST APIs</span><span class="chip">AWS (EC2, S3)</span>
-      </div>
-    </div>
-    <div class="skill-card">
-      <h3>CS fundamentals</h3>
-      <div class="chip-row">
-        <span class="chip">Data Structures & Algorithms</span>
-        <span class="chip">Operating Systems</span>
-        <span class="chip">OOP</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 5. PROJECTS ============ -->
-<section class="wrap" id="projects">
-  <div class="sec-head"><span class="sec-num">05</span><h2>Projects</h2></div>
-  <p class="sec-sub">Two end-to-end MLOps builds — same underlying discipline, different domains: customer retention and insurance risk.</p>
-
-  <div class="project">
-    <div class="project-top">
-      <h3>End-to-End Customer Churn Prediction Platform</h3>
-      <div class="project-time mono">Aug 2026</div>
-    </div>
-    <div class="project-desc">
-      <ul>
-        <li>Built an end-to-end MLOps pipeline benchmarking Logistic Regression against Random Forest, reaching 72% ROC-AUC and tracking 10+ experiments in MLflow to auto-select the best model — improving recall by roughly 15% over the baseline.</li>
-        <li>Designed a FastAPI backend (Pydantic, 15+ REST endpoints, full CRUD on SQLAlchemy/SQLite) with a batch CSV pipeline that validates and scores 20,000+ rows per request, paired with a React.js frontend for live predictions, uploads, and history.</li>
-        <li>Containerized the stack with Docker & Docker Compose (multi-stage builds), added Pytest coverage for validation/CRUD flows, and managed the codebase with Git.</li>
-      </ul>
-    </div>
-    <div class="project-stack">
-      <span class="chip">Scikit-learn</span><span class="chip">MLflow</span><span class="chip">FastAPI</span>
-      <span class="chip">React.js</span><span class="chip">SQLAlchemy</span><span class="chip">Docker Compose</span><span class="chip">Pytest</span>
-    </div>
-    <a class="project-link" href="https://github.com/nsgowebjavaprog/Customer-Churn-Prediction-Platform" target="_blank" rel="noopener">
-      View repository ↗
-    </a>
-  </div>
-
-  <div class="project">
-    <div class="project-top">
-      <h3>Vehicle Insurance Prediction Platform</h3>
-      <div class="project-time mono">Nov — Dec 2025</div>
-    </div>
-    <div class="project-desc">
-      <ul>
-        <li>Built an end-to-end machine learning platform for vehicle insurance risk prediction using Python, NumPy, and Pandas, containerized with Docker and orchestrated with Kubernetes.</li>
-        <li>Implemented a complete MLOps pipeline using Git, DVC, Docker, FastAPI, MLflow, and AWS S3 for model versioning, training, testing, and automated CI/CD deployment.</li>
-        <li>Achieved production-grade reliability through automated model retraining and deployment workflows.</li>
-      </ul>
-    </div>
-    <div class="project-stack">
-      <span class="chip">NumPy</span><span class="chip">Pandas</span><span class="chip">Kubernetes</span>
-      <span class="chip">DVC</span><span class="chip">MLflow</span><span class="chip">AWS S3</span><span class="chip">FastAPI</span>
-    </div>
-    <a class="project-link" href="https://github.com/nsgowebjavaprog/Vehicle_Insurance_Domain" target="_blank" rel="noopener">
-      View repository ↗
-    </a>
-  </div>
-</section>
-
-<!-- ============ 6. ACHIEVEMENTS / CERTIFICATIONS ============ -->
-<section class="wrap" id="achievements">
-  <div class="sec-head"><span class="sec-num">06</span><h2>Achievements & certifications</h2></div>
-  <p class="sec-sub">Tap any certificate to view it full-size.</p>
-
-  <div class="ach-grid">
-    <div class="ach-card">
-      <img src="assets/aws-cert.png" alt="AWS Certified Cloud Practitioner certificate" onclick="openLightbox(this.src, this.alt)">
-      <div class="ach-body">
-        <div class="ach-tag">GLOBAL CERTIFICATION</div>
-        <h3>AWS Certified Cloud Practitioner</h3>
-        <p>Amazon Web Services — issued May 2026, valid through May 2029.</p>
-      </div>
-    </div>
-
-    <div class="ach-card">
-      <img src="assets/paper-publication.png" alt="Certificate of publication, International Journal of Advanced Research in Computer and Communication Engineering" onclick="openLightbox(this.src, this.alt)">
-      <div class="ach-body">
-        <div class="ach-tag">RESEARCH PUBLICATION</div>
-        <h3>"Design and Implementation of an AI-Powered Career Intelligence Platform for Adaptive Employability Enhancement"</h3>
-        <p>IJARCCE, Vol. 15, Issue 1 · Jan 2026 · DOI 10.17148/IJARCCE.2026.15135</p>
-      </div>
-    </div>
-
-    <div class="ach-card">
-      <img src="assets/wipro-datascience.png" alt="Wipro TalentNext Digital Skills Readiness Program Data Science certificate" onclick="openLightbox(this.src, this.alt)">
-      <div class="ach-body">
-        <div class="ach-tag">INDUSTRY CERTIFICATION</div>
-        <h3>Data Science — Digital Skills Readiness Program</h3>
-        <p>Wipro TalentNext, completed Jul – Oct 2025.</p>
-      </div>
-    </div>
-
-    <div class="ach-card">
-      <img src="assets/hackvyuha.png" alt="HackVyuha 2025 national-level hackathon certificate of participation" onclick="openLightbox(this.src, this.alt)">
-      <div class="ach-body">
-        <div class="ach-tag">NATIONAL-LEVEL HACKATHON</div>
-        <h3>HackVyuha 2025</h3>
-        <p>National-level hackathon hosted by BLDEACET & Shri B M Patil Foundation for Innovation and Incubation — also received the "Best Tech Stack User" award.</p>
-      </div>
-    </div>
-
-    <div class="ach-card">
-      <img src="assets/ignitron.png" alt="Ignitron 2K24 state-level hackathon certificate of participation" onclick="openLightbox(this.src, this.alt)">
-      <div class="ach-body">
-        <div class="ach-tag">STATE-LEVEL HACKATHON</div>
-        <h3>Ignitron 2K24</h3>
-        <p>24-hour state-level hackathon organised by GM University, Davanagere · Dec 2024.</p>
-      </div>
-    </div>
-
-    <div class="ach-card">
-      <img src="assets/aws-internship.png" alt="AWS Cloud Computing virtual internship completion certificate" onclick="openLightbox(this.src, this.alt)">
-      <div class="ach-body">
-        <div class="ach-tag">VIRTUAL INTERNSHIP</div>
-        <h3>AWS Cloud Computing Internship</h3>
-        <p>SmartBridge, in association with NASSCOM FutureSkills Prime · Jan – Mar 2026.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 7. EXPERIENCE (extra section) ============ -->
-<section class="wrap" id="experience">
-  <div class="sec-head"><span class="sec-num">07</span><h2>Experience</h2></div>
-  <div class="exp-item">
-    <div class="exp-time mono">Jan 2026 — Mar 2026</div>
-    <div class="exp-body">
-      <h3>AWS Cloud Computing Virtual Internship — SmartBridge</h3>
-      <ul>
-        <li>Completed a structured virtual internship on AWS Cloud, covering core cloud services and architecture concepts.</li>
-        <li>Applied AWS concepts hands-on, gaining practical familiarity with cloud deployment models and services (S3, EC2).</li>
-        <li>Deployed the Vehicle Insurance Prediction Platform using S3 for automated CI/CD model deployment.</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 8. HR / INTERVIEW PREP ============ -->
-<section class="wrap" id="hr">
-  <div class="sec-head"><span class="sec-num">08</span><h2>Interview prep — top 5 HR questions</h2></div>
-  <p class="sec-sub">Click a question to expand the answer.</p>
-
-  <div id="qa-list"></div>
-</section>
-
-<!-- ============ 9. END SECTION ============ -->
-<section class="wrap end-section" id="contact">
-  <div class="end-inner">
-    <div>
-      <h2>Have a role that needs an ML pipeline built end to end?</h2>
-      <p>I'm currently looking for AI/ML engineering or full-stack opportunities. Feel free to reach out — I usually reply within a day.</p>
-    </div>
-    <a class="end-cta mono" href="mailto:nagarajloni209@gmail.com">Email nagarajloni209@gmail.com</a>
-  </div>
-</section>
-
-<!-- ============ 10. FOOTER ============ -->
-<footer class="wrap">
-  <div class="footer-inner">
-    <div>© 2026 Nagaraj Loni. Built with HTML, CSS & JavaScript.</div>
-    <div class="footer-links">
-      <a href="https://www.linkedin.com/in/nagaraj-loni-85a965308/" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://github.com/nsgowebjavaprog" target="_blank" rel="noopener">GitHub</a>
-      <a href="https://leetcode.com/u/NS258/" target="_blank" rel="noopener">LeetCode</a>
-      <a href="mailto:nagarajloni209@gmail.com">Email</a>
-      <a href="#top">Back to top ↑</a>
-    </div>
-  </div>
-</footer>
-
-<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
-  <button class="lightbox-close" onclick="closeLightbox(event)">close ✕</button>
-  <img id="lightbox-img" src="" alt="">
+<!-- mobile top bar -->
+<div class="mobile-bar">
+  <span class="mobile-bar__tag">nagaraj_loni.pipeline</span>
+  <button class="mobile-bar__toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </div>
 
-<script>
-  // ---------- Lightbox ----------
-  function openLightbox(src, alt){
-    const lb = document.getElementById('lightbox');
-    const img = document.getElementById('lightbox-img');
-    img.src = src;
-    img.alt = alt;
-    lb.classList.add('open');
-  }
-  function closeLightbox(e){
-    if(e.target.id === 'lightbox' || e.target.classList.contains('lightbox-close')){
-      document.getElementById('lightbox').classList.remove('open');
-    }
-  }
-  document.addEventListener('keydown', function(e){
-    if(e.key === 'Escape') document.getElementById('lightbox').classList.remove('open');
-  });
+<div class="frame">
 
-  // ---------- HR Q&A accordion ----------
-  const qaData = [
-    {
-      q: "Tell me about yourself.",
-      a: "I'm a final-year Computer Science student who builds end-to-end ML systems rather than just training models. My core project was KannadaLM, a monolingual LLM trained from scratch, which pushed me to get comfortable with the full pipeline — data handling, PyTorch, and eventually MLOps practices like MLflow tracking and Docker deployment. I've since applied that same discipline to two production-style platforms: a customer churn predictor and a vehicle insurance risk model, both served through FastAPI and deployed on AWS. I hold an AWS Cloud Practitioner certification and I'm looking for a role where I can keep building systems that go all the way from a raw dataset to something a real user can query."
-    },
-    {
-      q: "What are your strengths and weaknesses?",
-      a: "My strength is closing the gap between a trained model and a usable product — I default to thinking about versioning, testing, and deployment from day one, not as an afterthought, which shows in how I built the CI/CD pipelines for both of my MLOps projects. My weakness is that I can go deep into getting a pipeline technically right — like tuning a Docker Compose setup — before stepping back to check whether it's the highest-value thing to spend time on. I've been correcting this by setting a time-box for infrastructure work and coming back to it later if needed, rather than polishing it upfront."
-    },
-    {
-      q: "Why should we hire you for this role?",
-      a: "Because I've already done the type of work this role needs, on my own initiative, without a team or a mentor assigning it. I built a churn prediction pipeline that benchmarks multiple models, tracks experiments in MLflow, and serves predictions through a FastAPI backend handling 20,000+ rows per batch — that's the same shape of work most ML engineering roles need on day one. I also bring the full-stack side: React for the frontend, Docker for packaging, AWS for deployment. I learn the underlying concept, not just the API calls, which is why I could take on a new stack quickly if this role needs one I haven't used yet."
-    },
-    {
-      q: "Where do you see yourself in five years?",
-      a: "I want to grow from building individual ML pipelines into owning the ML infrastructure for a product — the kind of person a team calls when a model needs to go from notebook to production reliably. In the next couple of years I want to deepen my experience with distributed training and larger-scale systems, since my LLM work so far has been at a smaller scale by necessity. Longer term, I'd like to be mentoring other engineers on MLOps practices, the same way structured resources helped me pick them up."
-    },
-    {
-      q: "Do you have any questions for us?",
-      a: "Yes — a few I'd genuinely like to know: What does the ML infrastructure stack look like today, and how much of my time would go toward modelling versus deployment and maintenance? How does the team currently handle experiment tracking and model versioning at scale? And what would success look like for someone in this role after the first six months?"
-    }
-  ];
+  <!-- pipeline nav -->
+  <nav class="pipeline" id="pipelineNav">
+    <div class="pipeline__head">
+      <span class="pipeline__dot pipeline__dot--live"></span>
+      <span>build: passing</span>
+    </div>
+    <ol class="pipeline__stages">
+      <li><a href="#top" data-stage="00" class="pipeline__link"><span class="pipeline__num">00</span>connect</a></li>
+      <li><a href="#about" data-stage="01" class="pipeline__link"><span class="pipeline__num">01</span>about</a></li>
+      <li><a href="#education" data-stage="02" class="pipeline__link"><span class="pipeline__num">02</span>education</a></li>
+      <li><a href="#skills" data-stage="03" class="pipeline__link"><span class="pipeline__num">03</span>skills</a></li>
+      <li><a href="#projects" data-stage="04" class="pipeline__link"><span class="pipeline__num">04</span>projects</a></li>
+      <li><a href="#achievements" data-stage="05" class="pipeline__link"><span class="pipeline__num">05</span>achievements</a></li>
+      <li><a href="#experience" data-stage="06" class="pipeline__link"><span class="pipeline__num">06</span>experience</a></li>
+      <li><a href="#faq" data-stage="07" class="pipeline__link"><span class="pipeline__num">07</span>faq</a></li>
+      <li><a href="#contact" data-stage="08" class="pipeline__link"><span class="pipeline__num">08</span>connect.end</a></li>
+    </ol>
+    <div class="pipeline__foot">
+      <a href="mailto:nagarajloni209@gmail.com">nagarajloni209@gmail.com</a>
+    </div>
+  </nav>
 
-  const qaList = document.getElementById('qa-list');
-  qaData.forEach(function(item, i){
-    const wrapDiv = document.createElement('div');
-    wrapDiv.className = 'qa-item';
+  <main>
 
-    const btn = document.createElement('button');
-    btn.className = 'qa-q';
-    btn.setAttribute('aria-expanded', 'false');
-    btn.innerHTML = '<span><span class="idx mono">Q' + (i+1) + '</span>' + item.q + '</span><span class="chevron"></span>';
+    <!-- 00 : SECTION — MY SECTIONS / CONTACT LINKS -->
+    <section class="section hero" id="top">
+      <p class="stage-tag">00 / connect</p>
+      <h1 class="hero__name">Nagaraj&nbsp;Loni</h1>
+      <p class="hero__role">Computer Science graduate — Machine Learning &amp; AI Engineering</p>
+      <p class="hero__desc">I build production-ready ML systems: pipelines that train, track, containerize and ship models — not just notebooks that prove a point.</p>
 
-    const answerWrap = document.createElement('div');
-    answerWrap.className = 'qa-a';
-    const answerInner = document.createElement('div');
-    answerInner.className = 'qa-a-inner';
-    answerInner.innerHTML = '<span class="lbl">ANSWER</span>' + item.a;
-    answerWrap.appendChild(answerInner);
+      <div class="hero__links">
+        <a class="link-node" href="https://www.linkedin.com/in/nagaraj-loni-85a965308/" target="_blank" rel="noopener">
+          <span class="link-node__key">linkedin</span>
+          <span class="link-node__val">/in/nagaraj-loni</span>
+        </a>
+        <a class="link-node" href="https://github.com/nsgowebjavaprog" target="_blank" rel="noopener">
+          <span class="link-node__key">github</span>
+          <span class="link-node__val">nsgowebjavaprog</span>
+        </a>
+        <a class="link-node" href="https://leetcode.com/u/NS258/" target="_blank" rel="noopener">
+          <span class="link-node__key">leetcode</span>
+          <span class="link-node__val">NS258</span>
+        </a>
+        <a class="link-node" href="mailto:nagarajloni209@gmail.com">
+          <span class="link-node__key">gmail</span>
+          <span class="link-node__val">nagarajloni209@gmail.com</span>
+        </a>
+        <a class="link-node" href="tel:+916361544673">
+          <span class="link-node__key">mobile</span>
+          <span class="link-node__val">+91 63615 44673</span>
+        </a>
+      </div>
 
-    btn.addEventListener('click', function(){
-      const isOpen = wrapDiv.classList.contains('open');
-      // close all others
-      document.querySelectorAll('.qa-item.open').forEach(function(openItem){
-        if(openItem !== wrapDiv){
-          openItem.classList.remove('open');
-          openItem.querySelector('.qa-a').style.maxHeight = null;
-          openItem.querySelector('.qa-q').setAttribute('aria-expanded', 'false');
-        }
-      });
-      if(isOpen){
-        wrapDiv.classList.remove('open');
-        answerWrap.style.maxHeight = null;
-        btn.setAttribute('aria-expanded', 'false');
-      } else {
-        wrapDiv.classList.add('open');
-        answerWrap.style.maxHeight = answerWrap.scrollHeight + 'px';
-        btn.setAttribute('aria-expanded', 'true');
-      }
-    });
+      <div class="hero__metrics">
+        <div class="metric"><span class="metric__num">72%</span><span class="metric__label">ROC-AUC · churn model</span></div>
+        <div class="metric"><span class="metric__num">20K+</span><span class="metric__label">rows scored / request</span></div>
+        <div class="metric"><span class="metric__num">9.29</span><span class="metric__label">CGPA · out of 10</span></div>
+        <div class="metric"><span class="metric__num">6</span><span class="metric__label">certifications &amp; awards</span></div>
+      </div>
+    </section>
 
-    wrapDiv.appendChild(btn);
-    wrapDiv.appendChild(answerWrap);
-    qaList.appendChild(wrapDiv);
-  });
-</script>
+    <!-- 01 : ABOUT -->
+    <section class="section" id="about">
+      <p class="stage-tag">01 / about</p>
+      <h2 class="section__title">Introduction</h2>
+      <div class="section__body">
+        <p class="lede">I'm a final-year Computer Science student who got hooked on the gap between a model that scores well and a model someone can actually rely on.</p>
+        <p>That's the thread through my work — <strong>KannadaLM</strong>, a monolingual LLM I trained from scratch, taught me what happens under the hood of a language model; my churn-prediction and vehicle-insurance platforms taught me how to wrap that model in the plumbing that makes it usable — FastAPI services, MLflow tracking, Docker containers, and CI/CD that ships without babysitting.</p>
+        <p>I'm comfortable across the stack: Python and ML on one end, React and REST APIs on the other, AWS and Docker holding it together in between. What I'm looking for next is a team building real ML products, where I can keep closing that gap between prototype and production.</p>
+      </div>
+    </section>
 
+    <!-- 02 : EDUCATION -->
+    <section class="section" id="education">
+      <p class="stage-tag">02 / education</p>
+      <h2 class="section__title">Education</h2>
+
+      <div class="edu-card">
+        <div class="edu-card__row">
+          <div>
+            <h3 class="edu-card__title">B.E. — Computer Science &amp; Engineering</h3>
+            <p class="edu-card__sub">Ballari Institute of Technology and Management (BITM), Ballari, Karnataka</p>
+            <p class="edu-card__sub edu-card__sub--muted">Visvesvaraya Technological University (VTU)</p>
+          </div>
+          <div class="edu-card__stats">
+            <span class="edu-card__date">2022 – 2026</span>
+            <span class="edu-card__cgpa">CGPA <strong>9.29</strong> / 10</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="edu-card edu-card--secondary">
+        <div class="edu-card__row">
+          <div>
+            <h3 class="edu-card__title">2nd PUC</h3>
+            <p class="edu-card__sub">BIPU Badagandi, Karnataka</p>
+          </div>
+          <div class="edu-card__stats">
+            <span class="edu-card__date">2020 – 2022</span>
+            <span class="edu-card__cgpa">Percentage <strong>86.67%</strong></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 : SKILLS -->
+    <section class="section" id="skills">
+      <p class="stage-tag">03 / skills</p>
+      <h2 class="section__title">Skills</h2>
+
+      <div class="skill-grid">
+        <div class="skill-block">
+          <h3 class="skill-block__title">Languages &amp; Databases</h3>
+          <ul class="skill-list">
+            <li>Python</li><li>MySQL</li>
+          </ul>
+        </div>
+        <div class="skill-block">
+          <h3 class="skill-block__title">AI / ML &amp; Data Science</h3>
+          <ul class="skill-list">
+            <li>Machine Learning</li><li>Deep Learning</li><li>NLP</li><li>Generative AI</li>
+            <li>Large Language Models (LLM)</li><li>RAG</li><li>Feature Engineering</li>
+            <li>PyTorch</li><li>LangChain</li><li>NumPy</li><li>Pandas</li><li>Matplotlib</li><li>Scikit-learn</li>
+          </ul>
+        </div>
+        <div class="skill-block">
+          <h3 class="skill-block__title">MLOps &amp; Cloud</h3>
+          <ul class="skill-list">
+            <li>Docker</li><li>MLflow</li><li>DVC</li><li>CI/CD Pipelines</li>
+            <li>Git</li><li>FastAPI</li><li>REST APIs</li><li>AWS (EC2, S3)</li>
+          </ul>
+        </div>
+        <div class="skill-block">
+          <h3 class="skill-block__title">CS Fundamentals</h3>
+          <ul class="skill-list">
+            <li>Data Structures &amp; Algorithms</li><li>Operating Systems</li><li>OOP</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 : PROJECTS -->
+    <section class="section" id="projects">
+      <p class="stage-tag">04 / projects</p>
+      <h2 class="section__title">Projects</h2>
+
+      <article class="project">
+        <header class="project__bar">
+          <span class="project__dots"><i></i><i></i><i></i></span>
+          <span class="project__filename">churn_prediction_platform.py</span>
+        </header>
+        <div class="project__body">
+          <div class="project__head">
+            <h3 class="project__title">End-to-End Customer Churn Prediction Platform</h3>
+            <a class="project__link" href="https://github.com/nsgowebjavaprog/Customer-Churn-Prediction-Platform" target="_blank" rel="noopener">view repo →</a>
+          </div>
+          <p class="project__date">Aug 2026</p>
+          <p class="project__desc">A full MLOps pipeline that benchmarks Logistic Regression against Random Forest, auto-selects the better model from 10+ tracked experiments, and serves predictions through a production-style API and UI.</p>
+          <ul class="project__points">
+            <li>Built the pipeline with <strong>NumPy, Pandas &amp; Scikit-learn</strong>, reaching <strong>72% ROC-AUC</strong> and tracking every run in <strong>MLflow</strong> to auto-select the best model — a ~15% recall lift over baseline.</li>
+            <li>Designed a <strong>FastAPI</strong> backend (Pydantic, 15+ REST endpoints, full CRUD on SQLAlchemy/SQLite) with a batch CSV pipeline that validates and scores <strong>20,000+ rows per request</strong>.</li>
+            <li>Paired the backend with a <strong>React.js</strong> frontend for real-time predictions, upload, and history.</li>
+            <li>Containerized the stack with <strong>Docker &amp; Docker Compose</strong> (multi-stage builds), added <strong>Pytest</strong> coverage for validation/CRUD flows, and managed the codebase with <strong>Git</strong>.</li>
+          </ul>
+          <div class="project__tags">
+            <span>Python</span><span>Scikit-learn</span><span>MLflow</span><span>FastAPI</span><span>React</span><span>Docker</span><span>Pytest</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="project">
+        <header class="project__bar">
+          <span class="project__dots"><i></i><i></i><i></i></span>
+          <span class="project__filename">vehicle_insurance_platform.py</span>
+        </header>
+        <div class="project__body">
+          <div class="project__head">
+            <h3 class="project__title">Vehicle Insurance Prediction Platform</h3>
+            <a class="project__link" href="https://github.com/nsgowebjavaprog/Vehicle_Insurance_Domain" target="_blank" rel="noopener">view repo →</a>
+          </div>
+          <p class="project__date">Nov 2025 – Dec 2025</p>
+          <p class="project__desc">An end-to-end machine learning platform for vehicle insurance risk prediction, built for reliable, repeatable retraining rather than a one-off model.</p>
+          <ul class="project__points">
+            <li>Built the ML core with <strong>Python, NumPy &amp; Pandas</strong>, containerized with <strong>Docker</strong> and orchestrated with <strong>Kubernetes</strong>.</li>
+            <li>Implemented a complete <strong>MLOps pipeline</strong> — <strong>Git, DVC, Docker, FastAPI, MLflow</strong> and <strong>AWS S3</strong> for model versioning, training, testing and automated CI/CD deployment.</li>
+            <li>Achieved production-grade reliability through automated model retraining and deployment workflows.</li>
+          </ul>
+          <div class="project__tags">
+            <span>Python</span><span>Pandas</span><span>Docker</span><span>Kubernetes</span><span>DVC</span><span>MLflow</span><span>AWS S3</span>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- 05 : ACHIEVEMENTS -->
+    <section class="section" id="achievements">
+      <p class="stage-tag">05 / achievements</p>
+      <h2 class="section__title">Achievements &amp; Certifications</h2>
+      <p class="section__intro">Six markers of the same habit — finishing what I start. Click any card to open the certificate.</p>
+
+      <div class="cert-grid">
+
+        <button class="cert-card" data-img="photos/aws-cloud-practitioner.png" data-caption="AWS Certified Cloud Practitioner — Amazon Web Services · Issued May 16, 2026">
+          <span class="cert-card__badge">Global Certification</span>
+          <img src="photos/aws-cloud-practitioner.png" alt="AWS Certified Cloud Practitioner certificate" loading="lazy">
+          <span class="cert-card__title">AWS Certified Cloud Practitioner</span>
+          <span class="cert-card__meta">Amazon Web Services · May 2026</span>
+        </button>
+
+        <button class="cert-card" data-img="photos/aws-internship-certificate.jpeg" data-caption="AWS Cloud Computing Virtual Internship — SmartBridge × NASSCOM FutureSkills Prime · Jan–Mar 2026">
+          <span class="cert-card__badge">Internship</span>
+          <img src="photos/aws-internship-certificate.jpeg" alt="AWS Cloud Computing virtual internship certificate" loading="lazy">
+          <span class="cert-card__title">AWS Cloud Computing — Virtual Internship</span>
+          <span class="cert-card__meta">SmartBridge · Jan – Mar 2026</span>
+        </button>
+
+        <button class="cert-card" data-img="photos/wipro-talentnext-datascience.png" data-caption="Digital Skills Readiness Program — Data Science, Wipro TalentNext · Jul–Oct 2025">
+          <span class="cert-card__badge">Data Science</span>
+          <img src="photos/wipro-talentnext-datascience.png" alt="Wipro TalentNext Data Science certificate" loading="lazy">
+          <span class="cert-card__title">Data Science — Digital Skills Readiness</span>
+          <span class="cert-card__meta">Wipro TalentNext · 2025</span>
+        </button>
+
+        <button class="cert-card" data-img="photos/ijarcce-publication.png" data-caption="Design and Implementation of an AI-Powered Career Intelligence Platform for Adaptive Employability Enhancement — IJARCCE, Vol 15, Issue 1, Jan 2026 · DOI 10.17148/IJARCCE.2026.15135">
+          <span class="cert-card__badge">Publication</span>
+          <img src="photos/ijarcce-publication.png" alt="IJARCCE paper publication certificate" loading="lazy">
+          <span class="cert-card__title">Research Paper — IJARCCE</span>
+          <span class="cert-card__meta">AI-powered career intelligence platform · Jan 2026</span>
+        </button>
+
+        <button class="cert-card" data-img="photos/hackvyuha-2025.png" data-caption="HackVyuha 2025 — National-Level Hackathon, BLDEACET / Institution's Innovation Council">
+          <span class="cert-card__badge">National Hackathon</span>
+          <img src="photos/hackvyuha-2025.png" alt="HackVyuha 2025 hackathon certificate" loading="lazy">
+          <span class="cert-card__title">HackVyuha 2025</span>
+          <span class="cert-card__meta">National-level hackathon · Participant</span>
+        </button>
+
+        <button class="cert-card" data-img="photos/ignitron-2k24.png" data-caption="Ignitron 2K24 — State-Level 24-hour Hackathon, GM University, Davanagere · 6–7 Dec 2024">
+          <span class="cert-card__badge">State Hackathon</span>
+          <img src="photos/ignitron-2k24.png" alt="Ignitron 2K24 hackathon certificate" loading="lazy">
+          <span class="cert-card__title">Ignitron 2K24</span>
+          <span class="cert-card__meta">GM University · 24-hr state-level hackathon</span>
+        </button>
+
+      </div>
+
+      <div class="award-note">
+        <span class="award-note__icon">★</span>
+        <p>Also received the <strong>"Best Tech Stack User"</strong> award at a national-level hackathon.</p>
+      </div>
+    </section>
+
+    <!-- 06 : EXPERIENCE (the "left over" section) -->
+    <section class="section" id="experience">
+      <p class="stage-tag">06 / experience</p>
+      <h2 class="section__title">Experience</h2>
+
+      <div class="exp-row">
+        <div class="exp-row__time">
+          <span>Jan 2026</span>
+          <span class="exp-row__line"></span>
+          <span>Mar 2026</span>
+        </div>
+        <div class="exp-row__body">
+          <h3 class="exp-row__title">AWS Cloud Computing — Virtual Internship</h3>
+          <p class="exp-row__org">SmartBridge, in partnership with NASSCOM FutureSkills Prime</p>
+          <ul class="exp-row__points">
+            <li>Completed a structured virtual internship covering core AWS cloud services and architecture concepts.</li>
+            <li>Applied AWS concepts hands-on, building practical familiarity with cloud deployment models and services (<strong>S3, EC2</strong>).</li>
+            <li>Deployed the Vehicle Insurance Prediction Platform using <strong>S3</strong> for automated CI/CD model deployment.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 : FAQ -->
+    <section class="section" id="faq">
+      <p class="stage-tag">07 / faq</p>
+      <h2 class="section__title">Frequently asked in interviews</h2>
+      <p class="section__intro">Five questions I get asked on almost every call. Click one to expand the answer.</p>
+
+      <div class="faq-list" id="faqList">
+
+        <div class="faq-item">
+          <button class="faq-item__q" aria-expanded="false">
+            <span>Tell me about yourself.</span>
+            <span class="faq-item__icon">+</span>
+          </button>
+          <div class="faq-item__a">
+            <p>I'm a final-year Computer Science student at BITM Ballari with a 9.29 CGPA, focused on machine learning and AI engineering. I trained KannadaLM, a monolingual LLM, from scratch, and built two end-to-end MLOps platforms — a customer churn predictor and a vehicle insurance risk model — using FastAPI, MLflow, Docker and AWS. I care less about a model that scores well in a notebook and more about one that survives contact with real traffic, which is why I lean into the pipeline and deployment side as much as the modeling itself.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-item__q" aria-expanded="false">
+            <span>What are your strengths and weaknesses?</span>
+            <span class="faq-item__icon">+</span>
+          </button>
+          <div class="faq-item__a">
+            <p><strong>Strength:</strong> I finish the unglamorous parts. It's easy to get a model to 70% accuracy in an afternoon; I'm the person who then adds the CI/CD pipeline, the test coverage and the containerization so it actually ships — that's how both my major projects ended up production-shaped, not just prototype-shaped.</p>
+            <p><strong>Weakness:</strong> I can over-invest in infrastructure before validating the idea is worth it. I've gotten better at time-boxing the "make it robust" phase and asking whether the model is even the right one before I containerize it.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-item__q" aria-expanded="false">
+            <span>Why should we hire you?</span>
+            <span class="faq-item__icon">+</span>
+          </button>
+          <div class="faq-item__a">
+            <p>Because I already work like an engineer, not just a modeler. My churn platform has 15+ REST endpoints, full CRUD, Pytest coverage and Docker Compose orchestration behind it — that's the same shape of work a production ML team does daily. I'm AWS Certified, comfortable with Docker/Kubernetes/MLflow/DVC, and I pick things up fast: KannadaLM meant learning to train a language model from first principles in a short window.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-item__q" aria-expanded="false">
+            <span>Where do you see yourself in five years?</span>
+            <span class="faq-item__icon">+</span>
+          </button>
+          <div class="faq-item__a">
+            <p>Owning ML systems end-to-end — not just building a model, but being the person a team trusts to take it from experiment to a reliable service in production, and mentoring others through that same jump. I'd like to keep going deeper into MLOps and LLM infrastructure specifically, since that's where I already spend most of my time by choice.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-item__q" aria-expanded="false">
+            <span>Tell me about a challenging project and how you handled it.</span>
+            <span class="faq-item__icon">+</span>
+          </button>
+          <div class="faq-item__a">
+            <p>Training KannadaLM from scratch was the hardest thing I've built — there was no fine-tuning shortcut, I had to get the data pipeline, tokenization and training loop right with limited compute. I broke it into stages, tracked every experiment so I could tell what actually moved the needle, and treated failed runs as data rather than setbacks. That same "instrument everything, iterate in small steps" habit is what later made MLflow tracking and DVC feel natural on my other projects.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 08 : END / CONTACT -->
+    <section class="section section--end" id="contact">
+      <p class="stage-tag">08 / connect.end</p>
+      <h2 class="section__title">Let's build something reliable.</h2>
+      <p class="end__desc">Open to ML engineering, MLOps and applied AI roles. If a system needs to go from a working model to something a team can depend on, I'd like to hear about it.</p>
+      <div class="end__actions">
+        <a class="btn btn--primary" href="mailto:nagarajloni209@gmail.com">Email me</a>
+        <a class="btn" href="https://www.linkedin.com/in/nagaraj-loni-85a965308/" target="_blank" rel="noopener">Connect on LinkedIn</a>
+        <a class="btn" href="https://github.com/nsgowebjavaprog" target="_blank" rel="noopener">See my code</a>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer__inner">
+    <span class="footer__brand">Nagaraj Loni</span>
+    <span class="footer__sep">·</span>
+    <span>B.E. Computer Science, 2022–2026</span>
+    <span class="footer__sep">·</span>
+    <span>Ballari, Karnataka, India</span>
+  </div>
+  <div class="footer__links">
+    <a href="https://www.linkedin.com/in/nagaraj-loni-85a965308/" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://github.com/nsgowebjavaprog" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://leetcode.com/u/NS258/" target="_blank" rel="noopener">LeetCode</a>
+    <a href="mailto:nagarajloni209@gmail.com">Email</a>
+  </div>
+  <div class="footer__end">status: build passing · last deployed 2026</div>
+</footer>
+
+<!-- lightbox -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox__close" id="lightboxClose" aria-label="Close">×</button>
+  <figure class="lightbox__figure">
+    <img src="" alt="" id="lightboxImg">
+    <figcaption id="lightboxCaption"></figcaption>
+  </figure>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
